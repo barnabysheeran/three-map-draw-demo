@@ -29,8 +29,14 @@ export default class ContentCursor {
 
 		this.#CURSOR = new Mesh(GEOMETRY_CURSOR, this.#MATERIAL_CURSOR);
 
+		// Cast Shadow
+		this.#CURSOR.castShadow = true;
+
 		// Position Above Ground
 		this.#CURSOR.position.y = this.#DISTANCE_ABOVE_GROUND;
+
+		// Add UserData for Raycasting
+		this.#CURSOR.userData.name = 'content-cursor';
 
 		// Add to Scene
 		scene.add(this.#CURSOR);

@@ -20,6 +20,9 @@ export default class ContentMap {
 		// Rotate to Ground Flat
 		this.#PLANE.rotation.x = -Math.PI / 2;
 
+		// Receive Shadows
+		this.#PLANE.receiveShadow = true;
+
 		// Add UserData for Raycasting
 		this.#PLANE.userData.name = 'content-map';
 

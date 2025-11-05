@@ -16,14 +16,14 @@ export default class RenderController {
 		// TODO Tidy
 
 		// Tone
-		// this.RENDERER.toneMapping = LinearToneMapping;
-		// this.RENDERER.toneMappingExposure = 2.0;
+		this.RENDERER.toneMapping = LinearToneMapping;
+		this.RENDERER.toneMappingExposure = 2.0;
 
 		// Shadows
-		// this.RENDERER.shadowMap.enabled = true;
-		// this.RENDERER.shadowMap.type = PCFSoftShadowMap;
+		this.RENDERER.shadowMap.enabled = true;
+		this.RENDERER.shadowMap.type = PCFSoftShadowMap;
 
-		// this.RENDERER.capabilities.maxSamples = 32;
+		this.RENDERER.capabilities.maxSamples = 32;
 
 		// Clear
 		this.RENDERER.setClearColor(0x666666, 1.0);
