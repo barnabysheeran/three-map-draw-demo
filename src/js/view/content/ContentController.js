@@ -39,7 +39,13 @@ export default class ContentController {
 		this.#CONTENT_WALL = new ContentWall(scene);
 		this.#CONTENT_CURSOR = new ContentCursor(scene);
 
-		// Application Dispatcher Events
+		// Application Dispatcher Events Interaction
+		ApplicationDispatcher.on(
+			'interaction-controller-click',
+			this.#onInteractionControllerClick.bind(this),
+		);
+
+		// Application Dispatcher Events UI
 		ApplicationDispatcher.on(
 			'content-path-clear',
 			this.#onContentPathClear.bind(this),
@@ -88,5 +94,9 @@ export default class ContentController {
 
 	#onContentWallClear() {
 		this.#CONTENT_WALL.clear();
+	}
+
+	#onInteractionControllerClick(eventData) {
+		console.log('ContentController: onInteractionControllerClick', eventData);
 	}
 }

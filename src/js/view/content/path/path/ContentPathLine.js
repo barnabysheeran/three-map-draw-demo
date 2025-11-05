@@ -26,12 +26,9 @@ export default class ContentPathLine {
 
 		// Calculate Length
 		const LENGTH = ADJUSTED_START.distanceTo(ADJUSTED_END);
-		console.log('ContentPathLine: Length:', LENGTH);
 
+		// Ignore if Length is Zero or Negative
 		if (LENGTH <= 0) {
-			console.warn(
-				'ContentPathLine: Length is zero or negative, skipping line creation.',
-			);
 			return;
 		}
 

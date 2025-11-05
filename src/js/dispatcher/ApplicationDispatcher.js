@@ -8,6 +8,8 @@ export default class ApplicationDispatcher {
 
 		'content-wall-build', // { height: number }
 		'content-wall-clear', // {}
+
+		'interaction-controller-click', // { mouseX: number, mouseY: number }
 	];
 
 	// ________________________________________________________________ Dispatch

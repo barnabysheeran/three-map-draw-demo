@@ -1,11 +1,22 @@
+import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
+
 export default class InteractionController {
 	#CAMERA_CONTROLLER;
 
 	#PAN_SCALAR = Math.PI / 600.0;
 
-	#panActive = false;
-	#lastPanX = 0;
-	#lastPanY = 0;
+	#isMouseDown = false;
+
+	#mouseDownX = 0;
+	#mouseDownY = 0;
+
+	#previousMouseX = 0;
+	#previousMouseY = 0;
+
+	// TODO Hard-Coded Click Threshold
+	#pixelsMovedThreshold = 5;
+	#pixelsMovedThresholdSquared =
+		this.#pixelsMovedThreshold * this.#pixelsMovedThreshold;
 
 	// TODO Bind events so they can be removed later if needed
 
@@ -16,7 +27,7 @@ export default class InteractionController {
 		this.#CAMERA_CONTROLLER = cameraController;
 
 		// Mouse events
-		canvas.addEventListener('mousedown', this.#onPanStart.bind(this));
+		canvas.addEventListener('mousedown', this.#onMouseDown.bind(this));
 		canvas.addEventListener('mousemove', this.#onPanMove.bind(this));
 		canvas.addEventListener('mouseup', this.#onPanEnd.bind(this));
 		canvas.addEventListener('mouseleave', this.#onPanEnd.bind(this));
@@ -38,49 +49,75 @@ export default class InteractionController {
 
 	// _____________________________________________________________________ Pan
 
-	#onPanStart(event) {
-		this.#panActive = true;
-		this.#lastPanX = event.clientX;
-		this.#lastPanY = event.clientY;
+	#onMouseDown(event) {
+		// Store Last Mouse Position
+		this.#previousMouseX = event.clientX;
+		this.#previousMouseY = event.clientY;
+
+		// Store Mouse Down Position
+		this.#mouseDownX = event.clientX;
+		this.#mouseDownY = event.clientY;
+
+		// Down
+		this.#isMouseDown = true;
 	}
 
 	#onPanMove(event) {
-		if (!this.#panActive) return;
-		const deltaX = event.clientX - this.#lastPanX;
-		const deltaY = event.clientY - this.#lastPanY;
+		// Mouse is Down ?
+		if (!this.#isMouseDown) {
+			return;
+		}
+
+		// Mouse is Down
+		const deltaX = event.clientX - this.#previousMouseX;
+		const deltaY = event.clientY - this.#previousMouseY;
 
 		this.#CAMERA_CONTROLLER.moveThetaTarget(-deltaX * this.#PAN_SCALAR);
 		this.#CAMERA_CONTROLLER.movePhiTarget(-deltaY * this.#PAN_SCALAR);
 
-		this.#lastPanX = event.clientX;
-		this.#lastPanY = event.clientY;
+		this.#previousMouseX = event.clientX;
+		this.#previousMouseY = event.clientY;
 	}
 
 	#onPanEnd() {
-		this.#panActive = false;
+		// Calculate Distance from Mouse Down to Mouse Up
+		const deltaX = this.#previousMouseX - this.#mouseDownX;
+		const deltaY = this.#previousMouseY - this.#mouseDownY;
+		const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+		// If Distance Squared is Less than Threshold Squared, it's a Click
+		if (distanceSquared < this.#pixelsMovedThresholdSquared) {
+			ApplicationDispatcher.dispatch('interaction-controller-click', {
+				mouseX: this.#previousMouseX,
+				mouseY: this.#previousMouseY,
+			});
+		}
+
+		// Not Down
+		this.#isMouseDown = false;
 	}
 
 	#onTouchStart(event) {
 		if (event.touches.length === 1) {
-			this.#panActive = true;
-			this.#lastPanX = event.touches[0].clientX;
-			this.#lastPanY = event.touches[0].clientY;
+			this.#isMouseDown = true;
+			this.#previousMouseX = event.touches[0].clientX;
+			this.#previousMouseY = event.touches[0].clientY;
 		}
 	}
 
 	#onTouchMove(event) {
-		if (!this.#panActive || event.touches.length !== 1) return;
+		if (!this.#isMouseDown || event.touches.length !== 1) return;
 		event.preventDefault(); // Prevent scrolling
 
 		const touch = event.touches[0];
-		const deltaX = touch.clientX - this.#lastPanX;
-		const deltaY = touch.clientY - this.#lastPanY;
+		const deltaX = touch.clientX - this.#previousMouseX;
+		const deltaY = touch.clientY - this.#previousMouseY;
 
 		this.#CAMERA_CONTROLLER.moveThetaTarget(-deltaX * this.#PAN_SCALAR);
 		this.#CAMERA_CONTROLLER.movePhiTarget(-deltaY * this.#PAN_SCALAR);
 
-		this.#lastPanX = touch.clientX;
-		this.#lastPanY = touch.clientY;
+		this.#previousMouseX = touch.clientX;
+		this.#previousMouseY = touch.clientY;
 	}
 
 	// ___________________________________________________________________ Wheel

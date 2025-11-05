@@ -13,11 +13,9 @@ export default class RenderController {
 		// Pixel Ratio
 		this.RENDERER.setPixelRatio(window.devicePixelRatio || 1);
 
-		// TODO Tidy
-
 		// Tone
 		this.RENDERER.toneMapping = LinearToneMapping;
-		this.RENDERER.toneMappingExposure = 2.0;
+		this.RENDERER.toneMappingExposure = 1.0;
 
 		// Shadows
 		this.RENDERER.shadowMap.enabled = true;

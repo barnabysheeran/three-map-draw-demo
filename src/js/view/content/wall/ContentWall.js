@@ -17,6 +17,8 @@ export default class ContentWall {
 		// Create Wall Surface Material
 		this.#WALL_SURFACE_MATERIAL = new MeshPhysicalMaterial({
 			color: 0xffffff,
+			metalness: 0.0,
+			roughness: 1.0,
 			side: 2,
 		});
 	}
