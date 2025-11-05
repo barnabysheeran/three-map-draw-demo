@@ -39,7 +39,7 @@ export default class CameraController {
 			45,
 			window.innerWidth / window.innerHeight,
 			0.00001,
-			100.0,
+			20.0,
 		);
 
 		// Create Module Lookat

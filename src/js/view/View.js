@@ -48,8 +48,15 @@ export default class View {
 
 		// Create Controllers
 		this.#CAMERA_CONTROLLER = new CameraController();
+
 		this.#LIGHT_CONTROLLER = new LightController(this.#SCENE);
-		this.#CONTENT_CONTROLLER = new ContentController(this.#SCENE);
+
+		this.#CONTENT_CONTROLLER = new ContentController(
+			this.#SCENE,
+			this.#CANVAS,
+			this.#CAMERA_CONTROLLER,
+		);
+
 		this.#INTERACTION_CONTROLLER = new InteractionController(
 			this.#CANVAS,
 			this.#CAMERA_CONTROLLER,
@@ -58,7 +65,7 @@ export default class View {
 
 	// ____________________________________________________________________ Tick
 
-	tick(frameDeltaMS) {
+	tick() {
 		// Order Important
 
 		// Resized ?
@@ -71,8 +78,11 @@ export default class View {
 			this.#setSize(CANVAS_RECT.width, CANVAS_RECT.height);
 		}
 
-		// Camera
-		this.#CAMERA_CONTROLLER.tick(frameDeltaMS);
+		// Update Camera
+		this.#CAMERA_CONTROLLER.tick();
+
+		// Update Content
+		this.#CONTENT_CONTROLLER.tick();
 
 		// Render
 		this.#RENDER_CONTROLLER.render(
