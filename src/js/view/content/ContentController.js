@@ -24,7 +24,7 @@ export default class ContentController {
 		ApplicationLogger.log(`ContentController`, this.#LOG_LEVEL);
 
 		// Create Axes Helper at Scene Origin
-		scene.add(new AxesHelper(1));
+		// scene.add(new AxesHelper(1));
 
 		// Create Intersection
 		this.#CONTENT_INTERSECTION = new ContentIntersection(
@@ -69,6 +69,7 @@ export default class ContentController {
 		this.#CONTENT_INTERSECTION.tick();
 
 		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
+
 		const MAP_INTERSECTION_POINT =
 			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
 
@@ -87,9 +88,10 @@ export default class ContentController {
 	#onContentWallBuild(eventData) {
 		// Get Points from Path
 		const POSITIONS = this.#CONTENT_PATH.getPositions();
+		const IS_CLOSED = this.#CONTENT_PATH.getIsClosed();
 
 		// Build Walls
-		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height);
+		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height, IS_CLOSED);
 	}
 
 	#onContentWallClear() {

@@ -12,6 +12,10 @@ export default class ContentPath {
 	#PATH_POINTS = [];
 	#PATH_LINES = [];
 
+	#DISTANCE_CLOSE_LOOP = 0.1;
+
+	#isComplete = false;
+
 	// _________________________________________________________________________
 
 	constructor(scene) {
@@ -33,9 +37,32 @@ export default class ContentPath {
 	// _____________________________________________________________________ Add
 
 	addPoint(position) {
-		// TODO Tidy
-		console.log('ContentPath: addPoint', position);
+		// Complete ?
+		if (this.#isComplete) {
+			return;
+		}
 
+		// Check Close Loop ?
+		if (this.#PATH_POINTS.length > 2) {
+			// Get First Point Position
+			const FIRST_POINT_POSITION = this.#PATH_POINTS[0].getPosition();
+
+			// Calculate Distance
+			const DISTANCE = position.distanceTo(FIRST_POINT_POSITION);
+
+			if (DISTANCE < this.#DISTANCE_CLOSE_LOOP) {
+				// Close Loop
+				this.#addPointCloseLoop(FIRST_POINT_POSITION);
+
+				return;
+			}
+		}
+
+		// Add Path Point
+		this.#addPathPoint(position);
+	}
+
+	#addPathPoint(position) {
 		// Create Path Point
 		const PATH_POINT = new ContentPathPoint(
 			this.#SCENE,
@@ -49,8 +76,6 @@ export default class ContentPath {
 		// Get Total Path Points
 		const TOTAL_PATH_POINTS = this.#PATH_POINTS.length;
 
-		console.log('Total Path Points:', TOTAL_PATH_POINTS);
-
 		// Add Line ?
 		if (TOTAL_PATH_POINTS > 1) {
 			// Get Position Start
@@ -60,9 +85,6 @@ export default class ContentPath {
 			// Get Position End
 			const POSITION_END =
 				this.#PATH_POINTS[TOTAL_PATH_POINTS - 1].getPosition();
-
-			console.log('Position Start:', POSITION_START);
-			console.log('Position End:', POSITION_END);
 
 			// Create Path Line
 			const PATH_LINE = new ContentPathLine(
@@ -75,8 +97,28 @@ export default class ContentPath {
 			// Store
 			this.#PATH_LINES.push(PATH_LINE);
 		}
+	}
 
-		// Join ?
+	#addPointCloseLoop(positionFirstPoint) {
+		// Add Line to Close Loop
+		const POSITION_START =
+			this.#PATH_POINTS[this.#PATH_POINTS.length - 1].getPosition();
+
+		const POSITION_END = positionFirstPoint;
+
+		// Create Path Line
+		const PATH_LINE = new ContentPathLine(
+			this.#SCENE,
+			POSITION_START,
+			POSITION_END,
+			this.#MATERIAL_LINE,
+		);
+
+		// Store
+		this.#PATH_LINES.push(PATH_LINE);
+
+		// Complete
+		this.#isComplete = true;
 	}
 
 	// ___________________________________________________________________ Clear
@@ -95,9 +137,16 @@ export default class ContentPath {
 		});
 
 		this.#PATH_LINES = [];
+
+		// Not Complete
+		this.#isComplete = false;
 	}
 
 	// __________________________________________________________________ Access
+
+	getIsComplete() {
+		return this.#isComplete;
+	}
 
 	getPositions() {
 		const POSITIONS = [];
