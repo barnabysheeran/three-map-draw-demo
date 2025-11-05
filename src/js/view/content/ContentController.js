@@ -13,7 +13,7 @@ export default class ContentController {
 	#CONTENT_INTERSECTION;
 	#CONTENT_MAP;
 	#CONTENT_PATH;
-	#CONTENT_WALLS;
+	#CONTENT_WALL;
 	#CONTENT_CURSOR;
 
 	#LOG_LEVEL = 3;
@@ -36,7 +36,7 @@ export default class ContentController {
 		// Create Content
 		this.#CONTENT_MAP = new ContentMap(scene);
 		this.#CONTENT_PATH = new ContentPath(scene);
-		this.#CONTENT_WALLS = new ContentWall(scene);
+		this.#CONTENT_WALL = new ContentWall(scene);
 		this.#CONTENT_CURSOR = new ContentCursor(scene);
 
 		// Application Dispatcher Events
@@ -78,16 +78,15 @@ export default class ContentController {
 		this.#CONTENT_PATH.clear();
 	}
 
-	#onContentWallBuild() {
+	#onContentWallBuild(eventData) {
 		// Get Points from Path
-		const POINTS = this.#CONTENT_PATH.getPositions();
+		const POSITIONS = this.#CONTENT_PATH.getPositions();
 
-		console.log('ContentController: onContentWallBuild', POINTS);
-
-		this.#CONTENT_WALLS.buildWalls(POINTS);
+		// Build Walls
+		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height);
 	}
 
 	#onContentWallClear() {
-		this.#CONTENT_WALLS.clear();
+		this.#CONTENT_WALL.clear();
 	}
 }
