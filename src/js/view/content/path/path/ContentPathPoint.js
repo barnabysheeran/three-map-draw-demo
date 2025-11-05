@@ -1,6 +1,7 @@
 import { RingGeometry, Mesh } from 'three';
 
 export default class ContentPathPoint {
+	#SCENE;
 	#RING;
 
 	#MESH_DETAIL = 32;
@@ -12,6 +13,9 @@ export default class ContentPathPoint {
 	// _________________________________________________________________________
 
 	constructor(scene, position, material) {
+		// Store
+		this.#SCENE = scene;
+
 		// Create Ring
 		const RING_GEOMETRY = new RingGeometry(
 			this.#POINT_SIZE_INNER,
@@ -47,7 +51,14 @@ export default class ContentPathPoint {
 	// _________________________________________________________________ Dispose
 
 	dispose() {
-		// TODO
 		console.log('ContentPathPoint: dispose');
+
+		// Dispose Ring
+		if (this.#RING) {
+			this.#SCENE.remove(this.#RING);
+			this.#RING.geometry.dispose();
+			this.#RING.material.dispose();
+			this.#RING = null;
+		}
 	}
 }

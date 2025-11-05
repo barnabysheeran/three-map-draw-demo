@@ -49,7 +49,7 @@ export default class ContentPath {
 	// __________________________________________________________________ Events
 
 	#onContentPathClear() {
-		this.clearPathPoints();
+		this.clear();
 	}
 
 	// _____________________________________________________________________ Add
@@ -104,7 +104,18 @@ export default class ContentPath {
 	// ___________________________________________________________________ Clear
 
 	clear() {
-		// TODO
-		console.log('ContentPath: clearPathPoints');
+		// Clear Path Points
+		this.#PATH_POINTS.forEach((pathPoint) => {
+			pathPoint.dispose();
+		});
+
+		this.#PATH_POINTS = [];
+
+		// Clear Path Lines
+		this.#PATH_LINES.forEach((pathLine) => {
+			pathLine.dispose();
+		});
+
+		this.#PATH_LINES = [];
 	}
 }

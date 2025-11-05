@@ -1,6 +1,7 @@
 import { Line, BufferGeometry } from 'three';
 
 export default class ContentPathLine {
+	#SCENE;
 	#LINE;
 
 	#DISTANCE_CUTOUT_ENDS = 0.06;
@@ -8,6 +9,9 @@ export default class ContentPathLine {
 	// _________________________________________________________________________
 
 	constructor(scene, positionStart, positionEnd, material) {
+		// Store
+		this.#SCENE = scene;
+
 		// Calculate Direction Vector
 		const DIRECTION = positionEnd.clone().sub(positionStart).normalize();
 
@@ -48,5 +52,13 @@ export default class ContentPathLine {
 
 	dispose() {
 		console.log('ContentPathLine: dispose');
+
+		// Dispose Line
+		if (this.#LINE) {
+			this.#SCENE.remove(this.#LINE);
+			this.#LINE.geometry.dispose();
+			this.#LINE.material.dispose();
+			this.#LINE = null;
+		}
 	}
 }
