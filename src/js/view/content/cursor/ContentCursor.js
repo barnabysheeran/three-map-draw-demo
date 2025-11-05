@@ -1,32 +1,36 @@
-import { MeshStandardMaterial, BoxGeometry, Mesh } from 'three';
+import { MeshPhysicalMaterial, BoxGeometry, Mesh } from 'three';
 
 export default class ContentCursor {
+	#MATERIAL_CURSOR;
 	#CURSOR;
 
+	#MESH_DETAIL = 10;
+
 	#CURSOR_SIZE = 0.1;
-	#DISTANCE_ABOVE_GROUND = 0.1;
+	#DISTANCE_ABOVE_GROUND = 0.11;
 
 	// _________________________________________________________________________
 
 	constructor(scene) {
 		// Create Cursor
-		const MATERIAL_CURSOR = new MeshStandardMaterial({
+		this.#MATERIAL_CURSOR = new MeshPhysicalMaterial({
 			color: 0xff0000,
-			transparent: true,
-			opacity: 0.8,
+			transparent: false,
 		});
 
 		const GEOMETRY_CURSOR = new BoxGeometry(
 			this.#CURSOR_SIZE,
 			this.#CURSOR_SIZE,
 			this.#CURSOR_SIZE,
+			this.#MESH_DETAIL,
+			this.#MESH_DETAIL,
+			this.#MESH_DETAIL,
 		);
 
-		this.#CURSOR = new Mesh(GEOMETRY_CURSOR, MATERIAL_CURSOR);
+		this.#CURSOR = new Mesh(GEOMETRY_CURSOR, this.#MATERIAL_CURSOR);
 
 		// Position Above Ground
-		this.#CURSOR.position.y =
-			this.#CURSOR_SIZE / 2 + this.#DISTANCE_ABOVE_GROUND;
+		this.#CURSOR.position.y = this.#DISTANCE_ABOVE_GROUND;
 
 		// Add to Scene
 		scene.add(this.#CURSOR);
@@ -34,7 +38,21 @@ export default class ContentCursor {
 
 	// ____________________________________________________________________ Tick
 
-	tick() {
+	tick(isOverMap, mapIntersectionPoint) {
+		// Opacity
+		if (isOverMap) {
+			this.#MATERIAL_CURSOR.opacity = 1.0;
+		} else {
+			this.#MATERIAL_CURSOR.opacity = 0.1;
+		}
+
 		// Update Cursor
+		if (isOverMap && mapIntersectionPoint) {
+			// Position at Intersection Point
+			this.#CURSOR.position.copy(mapIntersectionPoint);
+
+			// Raise Above Ground
+			this.#CURSOR.position.y += this.#DISTANCE_ABOVE_GROUND;
+		}
 	}
 }

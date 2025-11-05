@@ -25,7 +25,7 @@ export default class ContentController {
 		ApplicationLogger.log(`ContentController`, this.#LOG_LEVEL);
 
 		// Create Axes Helper at Scene Origin
-		scene.add(new AxesHelper(1));
+		// scene.add(new AxesHelper(1));
 
 		// Create Content
 		this.#CONTENT_INTERSECTION = new ContentIntersection(
@@ -46,7 +46,11 @@ export default class ContentController {
 		// Order Important - Tick Intersection First
 		this.#CONTENT_INTERSECTION.tick();
 
+		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
+		const MAP_INTERSECTION_POINT =
+			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
+
 		// Tick Content
-		this.#CONTENT_CURSOR.tick();
+		this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
 	}
 }

@@ -57,18 +57,33 @@ export default class ContentIntersection {
 		);
 
 		// Map Intersection ?
-		this.#isOverMap = INTERSECTS.find(
-			(i) => i.object.userData.name === 'content-map',
-		);
+		this.#isOverMap = false;
+		this.#mapIntersectionPoint = undefined;
 
-		if (this.#isOverMap) {
-			this.#mapIntersectionPoint = this.#isOverMap.point;
+		for (const intersect of INTERSECTS) {
+			if (intersect.object.userData.name === 'content-map') {
+				this.#isOverMap = true;
+				this.#mapIntersectionPoint = intersect.point;
+				break;
+			}
 		}
+
+		// TODO Tidy
 
 		// Log all intersected objects
 		// console.log(
 		// 	'Intersected objects:',
 		// 	intersects.map((i) => i.object),
 		// );
+	}
+
+	// __________________________________________________________________ Access
+
+	getIsOverMap() {
+		return this.#isOverMap;
+	}
+
+	getMapIntersectionPoint() {
+		return this.#mapIntersectionPoint;
 	}
 }

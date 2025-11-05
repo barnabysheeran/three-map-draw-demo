@@ -1,7 +1,5 @@
 import { PerspectiveCamera } from 'three';
 
-import ApplicationDispatcher from '../../application/ApplicationDispatcher.js';
-
 import CameraModuleLookat from './module/CameraModuleLookat.js';
 import CameraModuleTheta from './module/CameraModuleTheta.js';
 import CameraModulePhi from './module/CameraModulePhi.js';
