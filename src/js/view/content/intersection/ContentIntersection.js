@@ -11,6 +11,8 @@ export default class ContentIntersection {
 	#isOverMap = false;
 	#mapIntersectionPoint = null;
 
+	// TODO Starts at 0,0 center screen
+
 	// _________________________________________________________________________
 
 	constructor(scene, canvas, cameraController) {
@@ -29,10 +31,12 @@ export default class ContentIntersection {
 	// __________________________________________________________________ Events
 
 	#onMouseMove(event) {
-		const rect = this.#CANVAS.getBoundingClientRect();
-		this.#POSITION_MOUSE.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+		// Store Mouse Position
+		const RECT = this.#CANVAS.getBoundingClientRect();
+
+		this.#POSITION_MOUSE.x = ((event.clientX - RECT.left) / RECT.width) * 2 - 1;
 		this.#POSITION_MOUSE.y = -(
-			((event.clientY - rect.top) / rect.height) * 2 -
+			((event.clientY - RECT.top) / RECT.height) * 2 -
 			1
 		);
 	}
@@ -52,7 +56,14 @@ export default class ContentIntersection {
 			true,
 		);
 
-		// Map Intersection
+		// Map Intersection ?
+		this.#isOverMap = INTERSECTS.find(
+			(i) => i.object.userData.name === 'content-map',
+		);
+
+		if (this.#isOverMap) {
+			this.#mapIntersectionPoint = this.#isOverMap.point;
+		}
 
 		// Log all intersected objects
 		// console.log(

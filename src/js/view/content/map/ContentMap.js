@@ -18,7 +18,10 @@ export default class ContentMap {
 		// Rotate to lay flat
 		this.#PLANE.rotation.x = -Math.PI / 2;
 
-		// Add
+		// Add UserData for Raycasting
+		this.#PLANE.userData.name = 'content-map';
+
+		// Add to Scene
 		scene.add(this.#PLANE);
 	}
 }
