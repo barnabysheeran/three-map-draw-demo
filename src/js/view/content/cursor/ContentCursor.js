@@ -45,20 +45,13 @@ export default class ContentCursor {
 	// ____________________________________________________________________ Tick
 
 	tick(isOverMap, mapIntersectionPoint) {
-		// Opacity
-		if (isOverMap) {
-			this.#MATERIAL_CURSOR.opacity = 1.0;
-		} else {
-			this.#MATERIAL_CURSOR.opacity = 0.1;
-		}
-
 		// Update Cursor
 		if (isOverMap && mapIntersectionPoint) {
 			// Position at Intersection Point
 			this.#CURSOR.position.copy(mapIntersectionPoint);
 
-			// Raise Above Ground
-			this.#CURSOR.position.y += this.#DISTANCE_ABOVE_GROUND;
+			// Position Above Ground
+			this.#CURSOR.position.y = this.#DISTANCE_ABOVE_GROUND;
 		}
 	}
 }

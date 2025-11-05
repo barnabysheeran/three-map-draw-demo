@@ -28,22 +28,13 @@ export default class ContentPath {
 		this.#MATERIAL_LINE = new LineBasicMaterial({
 			color: 0x00ff00,
 		});
-
-		// Dev - Add Sample Path Points
-		for (let i = 0; i < 10; i++) {
-			this.addPathPoint({
-				x: Math.random() * 5 - 2.5,
-				y: Math.random() * 5 - 2.5,
-				z: Math.random() * 5 - 2.5,
-			});
-		}
 	}
 
 	// _____________________________________________________________________ Add
 
-	addPathPoint(position) {
+	addPoint(position) {
 		// TODO Tidy
-		console.log('ContentPath: addPathPoint', position);
+		console.log('ContentPath: addPoint', position);
 
 		// Create Path Point
 		const PATH_POINT = new ContentPathPoint(

@@ -98,5 +98,14 @@ export default class ContentController {
 
 	#onInteractionControllerClick(eventData) {
 		console.log('ContentController: onInteractionControllerClick', eventData);
+
+		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
+
+		const MAP_INTERSECTION_POINT =
+			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
+
+		if (IS_OVER_MAP) {
+			this.#CONTENT_PATH.addPoint(MAP_INTERSECTION_POINT);
+		}
 	}
 }

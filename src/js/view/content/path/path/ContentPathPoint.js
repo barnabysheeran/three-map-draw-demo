@@ -30,7 +30,7 @@ export default class ContentPathPoint {
 
 		// Position
 		this.#RING.position.x = position.x;
-		this.#RING.position.z = position.y;
+		this.#RING.position.z = position.z;
 
 		// Position Above Ground
 		this.#RING.position.y = this.#DISTANCE_ABOVE_GROUND;
