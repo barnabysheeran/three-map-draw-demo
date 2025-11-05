@@ -13,7 +13,12 @@ export default class ContentMap {
 			color: 0x666666,
 		});
 
-		const PLANE_GEOMETRY = new PlaneGeometry(4, 4, 100, 100);
+		const PLANE_GEOMETRY = new PlaneGeometry(
+			4,
+			4,
+			this.#MESH_DETAIL,
+			this.#MESH_DETAIL,
+		);
 
 		this.#PLANE = new Mesh(PLANE_GEOMETRY, MATERIAL_PLANE);
 

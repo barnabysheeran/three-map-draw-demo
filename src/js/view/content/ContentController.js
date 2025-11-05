@@ -7,14 +7,14 @@ import ContentIntersection from './intersection/ContentIntersection.js';
 import ContentMap from './map/ContentMap.js';
 import ContentPath from './path/ContentPath.js';
 import ContentWall from './wall/ContentWall.js';
-import ContentCursor from './cursor/ContentCursor.js';
+// import ContentCursor from './cursor/ContentCursor.js';
 
 export default class ContentController {
 	#CONTENT_INTERSECTION;
 	#CONTENT_MAP;
 	#CONTENT_PATH;
 	#CONTENT_WALL;
-	#CONTENT_CURSOR;
+	// #CONTENT_CURSOR;
 
 	#LOG_LEVEL = 3;
 
@@ -37,7 +37,7 @@ export default class ContentController {
 		this.#CONTENT_MAP = new ContentMap(scene);
 		this.#CONTENT_PATH = new ContentPath(scene);
 		this.#CONTENT_WALL = new ContentWall(scene);
-		this.#CONTENT_CURSOR = new ContentCursor(scene);
+		// this.#CONTENT_CURSOR = new ContentCursor(scene);
 
 		// Application Dispatcher Events Interaction
 		ApplicationDispatcher.on(
@@ -68,13 +68,13 @@ export default class ContentController {
 		// Order Important - Tick Intersection First
 		this.#CONTENT_INTERSECTION.tick();
 
-		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
+		// const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
 
-		const MAP_INTERSECTION_POINT =
-			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
+		// const MAP_INTERSECTION_POINT =
+		// 	this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
 
 		// Tick Content
-		this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
+		// this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
 	}
 
 	// __________________________________________________________________ Events
@@ -97,6 +97,9 @@ export default class ContentController {
 	}
 
 	#onInteractionControllerClick() {
+		// Order Important - Tick Intersection First for Mobile
+		this.#CONTENT_INTERSECTION.tick();
+
 		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
 
 		const MAP_INTERSECTION_POINT =

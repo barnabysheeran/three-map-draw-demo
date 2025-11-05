@@ -1,4 +1,9 @@
-import { WebGLRenderer, PCFSoftShadowMap, LinearToneMapping } from 'three';
+import {
+	WebGLRenderer,
+	PCFSoftShadowMap,
+	LinearToneMapping,
+	SRGBColorSpace,
+} from 'three';
 
 import ApplicationConfiguration from '../../application/ApplicationConfiguration.js';
 
@@ -15,13 +20,16 @@ export default class RenderController {
 
 		// Tone
 		this.RENDERER.toneMapping = LinearToneMapping;
-		this.RENDERER.toneMappingExposure = 1.0;
+		this.RENDERER.toneMappingExposure = 1.5;
 
 		// Shadows
 		this.RENDERER.shadowMap.enabled = true;
 		this.RENDERER.shadowMap.type = PCFSoftShadowMap;
 
 		this.RENDERER.capabilities.maxSamples = 32;
+
+		// Gamma Correction
+		this.RENDERER.outputColorSpace = SRGBColorSpace;
 
 		// Clear
 		this.RENDERER.setClearColor(0x666666, 1.0);
