@@ -65,7 +65,11 @@
 }
 
 .ui-holder .ui-menu-holder {
-	width: 300px;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+
+	width: 240px;
 	height: 100%;
 }
 
