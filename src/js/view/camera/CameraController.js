@@ -100,15 +100,6 @@ export default class CameraController {
 	// ____________________________________________________________________ Tick
 
 	tick(update = false) {
-		if (Math.random() < 0.01) {
-			console.log('CameraController. tick');
-			console.log(' - Position:', this.#PERSPECTIVE_CAMERA.position);
-			console.log(' - Lookat:', this.#CAMERA_MODULE_LOOKAT.getPosition());
-			console.log(' - Theta:', this.#CAMERA_MODULE_THETA.getTheta());
-			console.log(' - Phi:', this.#CAMERA_MODULE_PHI.getPhi());
-			console.log(' - Radius:', this.#CAMERA_MODULE_RADIUS.getRadius());
-		}
-
 		// Tick Modules
 		let hasMoved = false;
 
@@ -121,6 +112,8 @@ export default class CameraController {
 		// Update Camera ?
 		if (hasMoved === true || update === true) {
 			this.#updatePerspectiveCamera();
+
+			return true;
 		}
 
 		// Initialised ?

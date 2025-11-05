@@ -8,6 +8,8 @@ import LightController from './light/LightController.js';
 import ContentController from './content/ContentController.js';
 import RenderController from './render/RenderController.js';
 
+import InteractionController from './interaction/InteractionController.js';
+
 export default class View {
 	#CANVAS;
 	#SCENE;
@@ -16,6 +18,7 @@ export default class View {
 	#LIGHT_CONTROLLER;
 	#CONTENT_CONTROLLER;
 	#RENDER_CONTROLLER;
+	#INTERACTION_CONTROLLER;
 
 	#canvasWidth = 0;
 	#canvasHeight = 0;
@@ -47,6 +50,10 @@ export default class View {
 		this.#CAMERA_CONTROLLER = new CameraController();
 		this.#LIGHT_CONTROLLER = new LightController(this.#SCENE);
 		this.#CONTENT_CONTROLLER = new ContentController(this.#SCENE);
+		this.#INTERACTION_CONTROLLER = new InteractionController(
+			this.#CANVAS,
+			this.#CAMERA_CONTROLLER,
+		);
 	}
 
 	// ____________________________________________________________________ Tick
@@ -65,16 +72,7 @@ export default class View {
 		}
 
 		// Camera
-		const CAMERA_DID_MOVE = this.#CAMERA_CONTROLLER.tick(frameDeltaMS);
-
-		// console.log('CAMERA_DID_MOVE', CAMERA_DID_MOVE);
-
-		if (Math.random() < 0.01) {
-			console.log(
-				'Camera Position:',
-				this.#CAMERA_CONTROLLER.getPerspectiveCamera().position,
-			);
-		}
+		this.#CAMERA_CONTROLLER.tick(frameDeltaMS);
 
 		// Render
 		this.#RENDER_CONTROLLER.render(

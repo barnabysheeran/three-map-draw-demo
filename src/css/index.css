@@ -46,7 +46,7 @@
 	box-sizing: border-box;
 
 	user-select: none;
-	pointer-events: none;
+	pointer-events: auto;
 
 	overflow: hidden;
 }
