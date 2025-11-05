@@ -3,7 +3,12 @@ import ApplicationDispatcherEvent from './ApplicationDispatcherEvent.js';
 export default class ApplicationDispatcher {
 	static #EVENTS = [];
 
-	static #VALID_EVENT_NAMES = [];
+	static #VALID_EVENT_NAMES = [
+		'content-path-clear', // {}
+
+		'content-wall-build', // {}
+		'content-wall-clear', // {}
+	];
 
 	// ________________________________________________________________ Dispatch
 

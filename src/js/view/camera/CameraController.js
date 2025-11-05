@@ -36,7 +36,7 @@ export default class CameraController {
 		this.#PERSPECTIVE_CAMERA = new PerspectiveCamera(
 			45,
 			window.innerWidth / window.innerHeight,
-			0.00001,
+			0.01,
 			20.0,
 		);
 
