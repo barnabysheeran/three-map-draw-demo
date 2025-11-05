@@ -9,10 +9,10 @@ export default class CameraModulePhi {
 		this.MOVEMENT_MINIMUM = movementMinimum;
 
 		// Init
-		this.phiMinimum = Math.PI * 0.2;
-		this.phiMaximum = Math.PI * 0.49;
+		this.phiMinimum = Math.PI * 0.01;
+		this.phiMaximum = Math.PI * 0.4;
 
-		this.PHI_DEFAULT = Math.PI * 0.425;
+		this.PHI_DEFAULT = Math.PI * 0.25;
 
 		this.phi = this.PHI_DEFAULT;
 		this.phiTarget = this.PHI_DEFAULT;

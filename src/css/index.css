@@ -23,17 +23,29 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-.application img {
-	border: 0;
-
-	-webkit-user-drag: none;
-	-khtml-user-drag: none;
-	-moz-user-drag: none;
-	-o-user-drag: none;
-}
-
 .canvas-view {
 	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 0;
+
+	width: 100%;
+	height: 100%;
+
+	display: block;
+	box-sizing: border-box;
+
+	user-select: none;
+	pointer-events: auto;
+
+	overflow: hidden;
+}
+
+.ui-holder {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
 
 	width: 100%;
 	height: 100%;
@@ -46,9 +58,7 @@
 	box-sizing: border-box;
 
 	user-select: none;
-	pointer-events: auto;
+	pointer-events: none;
 
 	overflow: hidden;
 }
-
-

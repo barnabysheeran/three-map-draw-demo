@@ -7,10 +7,12 @@ export default class InteractionController {
 	#lastPanX = 0;
 	#lastPanY = 0;
 
+	// TODO Bind events so they can be removed later if needed
+
 	// _________________________________________________________________________
 
 	constructor(canvas, cameraController) {
-		this.canvas = canvas;
+		// Store
 		this.#CAMERA_CONTROLLER = cameraController;
 
 		// Mouse events

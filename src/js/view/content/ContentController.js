@@ -1,9 +1,17 @@
-import { MeshStandardMaterial, BoxGeometry, Mesh } from 'three';
+import { MeshStandardMaterial, BoxGeometry, Mesh, AxesHelper } from 'three';
 
 import ApplicationLogger from '../../application/ApplicationLogger.js';
 
+import ContentMap from './map/ContentMap.js';
+import ContentPath from './path/ContentPath.js';
+import ContentWall from './wall/ContentWall.js';
+
 export default class ContentController {
 	#SCENE;
+
+	#CONTENT_MAP;
+	#CONTENT_PATH;
+	#CONTENT_WALLS;
 
 	// #DEMO_CUBE; // Removed, no longer used
 
@@ -17,28 +25,12 @@ export default class ContentController {
 		// Store Scene
 		this.#SCENE = scene;
 
-		// Create Demo Cube
-		const MATERIAL_DEMO = new MeshStandardMaterial({
-			color: 0xff0000,
-			wireframe: true,
-		});
+		// Create Axes Helper at Scene Origin
+		this.#SCENE.add(new AxesHelper(1));
 
-		const GEOMETRY_DEMO = new BoxGeometry(1, 1, 1);
-
-		// Create 100 cubes with random position and rotation
-		for (let i = 0; i < 100; i++) {
-			const cube = new Mesh(GEOMETRY_DEMO, MATERIAL_DEMO);
-			cube.position.set(
-				Math.random() * 20 - 10,
-				Math.random() * 20 - 10,
-				Math.random() * 20 - 10,
-			);
-			cube.rotation.set(
-				Math.random() * Math.PI * 2,
-				Math.random() * Math.PI * 2,
-				Math.random() * Math.PI * 2,
-			);
-			this.#SCENE.add(cube);
-		}
+		// Create Content
+		this.#CONTENT_MAP = new ContentMap(this.#SCENE);
+		this.#CONTENT_PATH = new ContentPath(this.#SCENE);
+		this.#CONTENT_WALLS = new ContentWall(this.#SCENE);
 	}
 }

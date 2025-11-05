@@ -1,7 +1,7 @@
 // TODO Privatise
 
 export default class CameraModuleTheta {
-	#thetaBoundsEnabled = true;
+	#thetaBoundsEnabled = false;
 
 	// _________________________________________________________________________
 
