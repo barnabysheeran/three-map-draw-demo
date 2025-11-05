@@ -81,9 +81,6 @@ export default class View {
 		// Update Camera
 		this.#CAMERA_CONTROLLER.tick();
 
-		// Update Content
-		this.#CONTENT_CONTROLLER.tick();
-
 		// Render
 		this.#RENDER_CONTROLLER.render(
 			this.#SCENE,

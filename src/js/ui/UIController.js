@@ -1,7 +1,7 @@
 import ApplicationConfiguration from '../application/ApplicationConfiguration.js';
 import ApplicationLogger from '../application/ApplicationLogger.js';
 
-// import UIMenuMap from './map/UIMenuMap.js';
+import UIMenuMap from './map/UIMenuMap.js';
 import UIMenuPath from './path/UIMenuPath.js';
 import UIMenuWall from './wall/UIMenuWall.js';
 
@@ -37,7 +37,7 @@ export default class UIController {
 		this.#UI_HOLDER.appendChild(this.#MENU_HOLDER);
 
 		// Create Menus
-		// this.#MENU_MAP = new UIMenuMap(this.#MENU_HOLDER);
+		this.#MENU_MAP = new UIMenuMap(this.#MENU_HOLDER);
 		this.#MENU_PATH = new UIMenuPath(this.#MENU_HOLDER);
 		this.#MENU_WALL = new UIMenuWall(this.#MENU_HOLDER);
 	}

@@ -20,11 +20,16 @@ export default class UIMenuWall {
 		title.innerText = 'Wall';
 		this.#HOLDER.appendChild(title);
 
+		// TODO Hard-Coded Walls Height Limits
+
 		// Add Input for Height
 		const heightInput = document.createElement('input');
 		heightInput.className = 'ui-input';
-		heightInput.type = 'text';
+		heightInput.type = 'number';
 		heightInput.value = this.#height;
+		heightInput.step = '0.1';
+		heightInput.min = '0.1';
+		heightInput.max = '2';
 		this.#HOLDER.appendChild(heightInput);
 
 		heightInput.addEventListener('input', this.#onHeightInputChange.bind(this));
@@ -60,23 +65,25 @@ export default class UIMenuWall {
 		// Get Value
 		let value = parseFloat(event.target.value);
 
+		// Nan Check
 		if (isNaN(value)) {
-			console.warn('Invalid height input:', event.target.value);
-
-			// Reset
-			value = 1;
+			return;
 		}
 
-		// Validate and Update Height
-		if (isNaN(value) || value <= 0) {
-			event.target.value = this.#height;
-		}
+		// Update Height
+		// event.target.value = this.#height;
 
 		// Store Height
 		this.#height = value;
 	}
 
 	#onWallBuildClick() {
+		// Valid Height ?
+		if (this.#height < 0.1 || this.#height > 3) {
+			console.warn('Invalid wall height:', this.#height);
+			return;
+		}
+
 		ApplicationDispatcher.dispatch('content-wall-build', {
 			height: this.#height,
 		});
