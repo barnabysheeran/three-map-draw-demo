@@ -25,7 +25,7 @@ export default class ContentWall {
 
 	// ___________________________________________________________________ Build
 
-	buildWalls(positions, height) {
+	buildWalls(positions, height, isClosed) {
 		// Clear Existing Walls
 		this.clear();
 
@@ -46,17 +46,32 @@ export default class ContentWall {
 			const NEXT_POSITION = positions[i + 1];
 
 			// Create Wall Surface
-			const WALL_SURFACE = new ContentWallSurface(
-				this.#SCENE,
-				CURRENT_POSITION,
-				NEXT_POSITION,
-				height,
-				this.#WALL_SURFACE_MATERIAL,
-			);
-
-			// Store
-			this.#WALL_SURFACES.push(WALL_SURFACE);
+			this.#addWallSurface(CURRENT_POSITION, NEXT_POSITION, height);
 		}
+
+		// Close Loop ?
+		if (isClosed) {
+			// Get First and Last Positions
+			const FIRST_POSITION = positions[0];
+			const LAST_POSITION = positions[positions.length - 1];
+
+			// Create Wall Surface
+			this.#addWallSurface(LAST_POSITION, FIRST_POSITION, height);
+		}
+	}
+
+	#addWallSurface(CURRENT_POSITION, NEXT_POSITION, height) {
+		// Create Wall Surface
+		const WALL_SURFACE = new ContentWallSurface(
+			this.#SCENE,
+			CURRENT_POSITION,
+			NEXT_POSITION,
+			height,
+			this.#WALL_SURFACE_MATERIAL,
+		);
+
+		// Store
+		this.#WALL_SURFACES.push(WALL_SURFACE);
 	}
 
 	// ___________________________________________________________________ Clear

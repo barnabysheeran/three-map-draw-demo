@@ -14,7 +14,7 @@ export default class ContentPath {
 
 	#DISTANCE_CLOSE_LOOP = 0.1;
 
-	#isComplete = false;
+	#isClosed = false;
 
 	// _________________________________________________________________________
 
@@ -38,7 +38,7 @@ export default class ContentPath {
 
 	addPoint(position) {
 		// Complete ?
-		if (this.#isComplete) {
+		if (this.#isClosed) {
 			return;
 		}
 
@@ -118,7 +118,7 @@ export default class ContentPath {
 		this.#PATH_LINES.push(PATH_LINE);
 
 		// Complete
-		this.#isComplete = true;
+		this.#isClosed = true;
 	}
 
 	// ___________________________________________________________________ Clear
@@ -139,13 +139,13 @@ export default class ContentPath {
 		this.#PATH_LINES = [];
 
 		// Not Complete
-		this.#isComplete = false;
+		this.#isClosed = false;
 	}
 
 	// __________________________________________________________________ Access
 
-	getIsComplete() {
-		return this.#isComplete;
+	getIsClosed() {
+		return this.#isClosed;
 	}
 
 	getPositions() {

@@ -80,8 +80,6 @@ export default class ContentController {
 	// __________________________________________________________________ Events
 
 	#onContentPathClear() {
-		console.log('ContentController: onContentPathClear');
-
 		this.#CONTENT_PATH.clear();
 	}
 
@@ -98,9 +96,7 @@ export default class ContentController {
 		this.#CONTENT_WALL.clear();
 	}
 
-	#onInteractionControllerClick(eventData) {
-		console.log('ContentController: onInteractionControllerClick', eventData);
-
+	#onInteractionControllerClick() {
 		const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
 
 		const MAP_INTERSECTION_POINT =
