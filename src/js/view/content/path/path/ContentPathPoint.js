@@ -51,8 +51,6 @@ export default class ContentPathPoint {
 	// _________________________________________________________________ Dispose
 
 	dispose() {
-		console.log('ContentPathPoint: dispose');
-
 		// Dispose Ring
 		if (this.#RING) {
 			this.#SCENE.remove(this.#RING);

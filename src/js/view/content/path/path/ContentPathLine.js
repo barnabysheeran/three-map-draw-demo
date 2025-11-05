@@ -51,8 +51,6 @@ export default class ContentPathLine {
 	// _________________________________________________________________ Dispose
 
 	dispose() {
-		console.log('ContentPathLine: dispose');
-
 		// Dispose Line
 		if (this.#LINE) {
 			this.#SCENE.remove(this.#LINE);
