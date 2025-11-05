@@ -3,13 +3,7 @@ import ApplicationDispatcherEvent from './ApplicationDispatcherEvent.js';
 export default class ApplicationDispatcher {
 	static #EVENTS = [];
 
-	static #VALID_EVENT_NAMES = [
-		// View
-		'project-menu-open',
-		'project-menu-close',
-
-		'view-project-menu-select', // { projectId: string }
-	];
+	static #VALID_EVENT_NAMES = [];
 
 	// ________________________________________________________________ Dispatch
 

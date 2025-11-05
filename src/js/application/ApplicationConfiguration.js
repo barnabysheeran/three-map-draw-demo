@@ -4,7 +4,9 @@ export default class ApplicationConfiguration {
 	static #applicationContainer;
 	static #assetPath;
 
-	static #LOG_LEVEL = -1;
+	static #anisotropyMax = 1; // Default
+
+	static #LOG_LEVEL = 1;
 
 	// _________________________________________________________________________
 
@@ -26,5 +28,20 @@ export default class ApplicationConfiguration {
 
 	static getAssetPath() {
 		return this.#assetPath;
+	}
+
+	// __________________________________________________________ Anisotropy Max
+
+	static setAnisotropyMax(anisotropyMax) {
+		ApplicationLogger.log(
+			'ApplicationConfiguration.setAnisotropyMax ' + anisotropyMax,
+			this.#LOG_LEVEL,
+		);
+
+		this.#anisotropyMax = anisotropyMax;
+	}
+
+	static getAnisotropyMax() {
+		return this.#anisotropyMax;
 	}
 }

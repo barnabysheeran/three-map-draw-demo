@@ -19,7 +19,8 @@
     "depcruise:selected": "depcruise --config ./tool/depcruise/config-selected.js --output-type dot src | dot -T svg > ./tool/depcruise/dependencygraph-selected.svg"
   },
   "dependencies": {
-    "@babel/runtime": "^7.27.6"
+    "@babel/runtime": "^7.27.6",
+    "three": "^0.181.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.7",
