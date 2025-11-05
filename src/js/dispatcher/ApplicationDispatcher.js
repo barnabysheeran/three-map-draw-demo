@@ -6,7 +6,7 @@ export default class ApplicationDispatcher {
 	static #VALID_EVENT_NAMES = [
 		'content-path-clear', // {}
 
-		'content-wall-build', // {}
+		'content-wall-build', // { height: number }
 		'content-wall-clear', // {}
 	];
 

@@ -1,6 +1,7 @@
 import { AxesHelper } from 'three';
 
 import ApplicationLogger from '../../application/ApplicationLogger.js';
+import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
 
 import ContentIntersection from './intersection/ContentIntersection.js';
 import ContentMap from './map/ContentMap.js';
@@ -15,8 +16,6 @@ export default class ContentController {
 	#CONTENT_WALLS;
 	#CONTENT_CURSOR;
 
-	// #DEMO_CUBE; // Removed, no longer used
-
 	#LOG_LEVEL = 3;
 
 	// _________________________________________________________________________
@@ -25,19 +24,36 @@ export default class ContentController {
 		ApplicationLogger.log(`ContentController`, this.#LOG_LEVEL);
 
 		// Create Axes Helper at Scene Origin
-		// scene.add(new AxesHelper(1));
+		scene.add(new AxesHelper(1));
 
-		// Create Content
+		// Create Intersection
 		this.#CONTENT_INTERSECTION = new ContentIntersection(
 			scene,
 			canvas,
 			cameraController,
 		);
 
+		// Create Content
 		this.#CONTENT_MAP = new ContentMap(scene);
 		this.#CONTENT_PATH = new ContentPath(scene);
 		this.#CONTENT_WALLS = new ContentWall(scene);
 		this.#CONTENT_CURSOR = new ContentCursor(scene);
+
+		// Application Dispatcher Events
+		ApplicationDispatcher.on(
+			'content-path-clear',
+			this.#onContentPathClear.bind(this),
+		);
+
+		ApplicationDispatcher.on(
+			'content-wall-build',
+			this.#onContentWallBuild.bind(this),
+		);
+
+		ApplicationDispatcher.on(
+			'content-wall-clear',
+			this.#onContentWallClear.bind(this),
+		);
 	}
 
 	// ____________________________________________________________________ Tick
@@ -52,5 +68,26 @@ export default class ContentController {
 
 		// Tick Content
 		this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
+	}
+
+	// __________________________________________________________________ Events
+
+	#onContentPathClear() {
+		console.log('ContentController: onContentPathClear');
+
+		this.#CONTENT_PATH.clear();
+	}
+
+	#onContentWallBuild() {
+		// Get Points from Path
+		const POINTS = this.#CONTENT_PATH.getPositions();
+
+		console.log('ContentController: onContentWallBuild', POINTS);
+
+		this.#CONTENT_WALLS.buildWalls(POINTS);
+	}
+
+	#onContentWallClear() {
+		this.#CONTENT_WALLS.clear();
 	}
 }

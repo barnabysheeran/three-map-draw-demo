@@ -1,3 +1,5 @@
+import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
+
 export default class UIMenuWall {
 	#HOLDER;
 
@@ -75,10 +77,12 @@ export default class UIMenuWall {
 	}
 
 	#onWallBuildClick() {
-		console.log('Build Wall');
+		ApplicationDispatcher.dispatch('content-wall-build', {
+			height: this.#height,
+		});
 	}
 
 	#onWallClearClick() {
-		console.log('Clear Wall');
+		ApplicationDispatcher.dispatch('content-wall-clear');
 	}
 }

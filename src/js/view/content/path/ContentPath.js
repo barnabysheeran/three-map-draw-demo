@@ -1,5 +1,4 @@
 import { MeshPhysicalMaterial, LineBasicMaterial } from 'three';
-import ApplicationDispatcher from '../../../dispatcher/ApplicationDispatcher.js';
 
 import ContentPathPoint from './path/ContentPathPoint.js';
 import ContentPathLine from './path/ContentPathLine.js';
@@ -18,12 +17,6 @@ export default class ContentPath {
 	constructor(scene) {
 		// Store
 		this.#SCENE = scene;
-
-		// Application Dispatcher Events
-		ApplicationDispatcher.on(
-			'content-path-clear',
-			this.#onContentPathClear.bind(this),
-		);
 
 		// Create Materials
 		this.#MATERIAL_POINT = new MeshPhysicalMaterial({
@@ -44,12 +37,6 @@ export default class ContentPath {
 				z: Math.random() * 5 - 2.5,
 			});
 		}
-	}
-
-	// __________________________________________________________________ Events
-
-	#onContentPathClear() {
-		this.clear();
 	}
 
 	// _____________________________________________________________________ Add
@@ -117,5 +104,17 @@ export default class ContentPath {
 		});
 
 		this.#PATH_LINES = [];
+	}
+
+	// __________________________________________________________________ Access
+
+	getPositions() {
+		const POSITIONS = [];
+
+		for (let i = 0; i < this.#PATH_POINTS.length; i++) {
+			POSITIONS.push(this.#PATH_POINTS[i].getPosition().clone());
+		}
+
+		return POSITIONS;
 	}
 }
