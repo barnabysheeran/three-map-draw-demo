@@ -15,7 +15,7 @@ export default {
 							'src/js/application/ApplicationConfiguration.js',
 
 							'src/js/dispatcher/ApplicationDispatcher.js',
-							'src/js/dispatcher/ApplicationEvent.js',
+							'src/js/dispatcher/ApplicationDispatcherEvent.js',
 						],
 					},
 				},
