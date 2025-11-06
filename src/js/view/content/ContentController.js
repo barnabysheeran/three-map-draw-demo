@@ -94,14 +94,9 @@ export default class ContentController {
 	// ____________________________________________________________________ Wall
 
 	#onContentWallBuild(eventData) {
-		console.log('ContentController. onContentWallBuild', eventData);
-
 		// Get Points from Path
 		const POSITIONS = this.#CONTENT_PATH.getPositions();
 		const IS_CLOSED = this.#CONTENT_PATH.getIsClosed();
-
-		console.log('Positions for Wall', POSITIONS);
-		console.log('Is Closed for Wall', IS_CLOSED);
 
 		// Build Walls
 		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height, IS_CLOSED);
