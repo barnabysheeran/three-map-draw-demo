@@ -3,7 +3,8 @@ import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
 export default class UIMenuWall {
 	#HOLDER;
 
-	#height = 1;
+	// TODO Default Wall Height
+	#height = 0.7;
 
 	// _________________________________________________________________________
 

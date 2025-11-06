@@ -6,7 +6,7 @@ export default class UIMenuMap {
 	// TODO Default Map Location
 	#lat = 38.8977;
 	#lon = -77.0365;
-	#zoom = 17;
+	#zoom = 18;
 
 	// _________________________________________________________________________
 
@@ -73,7 +73,7 @@ export default class UIMenuMap {
 		const zoomInput = document.createElement('input');
 		zoomInput.className = 'ui-input';
 		zoomInput.type = 'number';
-		zoomInput.value = '16';
+		zoomInput.value = this.#zoom;
 		zoomInput.step = '1';
 		zoomInput.min = '1';
 		zoomInput.max = '19';
