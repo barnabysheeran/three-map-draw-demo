@@ -5,7 +5,6 @@ import UIController from '../ui/UIController.js';
 
 export default class Controller {
 	#VIEW;
-	#UI_CONTROLLER;
 
 	#LOG_LEVEL = 1;
 
@@ -18,7 +17,7 @@ export default class Controller {
 		this.#VIEW = new View();
 
 		// Create UI Controller
-		this.#UI_CONTROLLER = new UIController();
+		new UIController();
 	}
 
 	// ____________________________________________________________________ Tick

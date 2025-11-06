@@ -1,4 +1,4 @@
-import { AxesHelper } from 'three';
+// import { AxesHelper } from 'three';
 
 import ApplicationLogger from '../../application/ApplicationLogger.js';
 import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
@@ -50,6 +50,11 @@ export default class ContentController {
 
 		// Application Dispatcher Events UI
 		ApplicationDispatcher.on(
+			'content-map-load-request',
+			this.#onContentMapLoadRequest.bind(this),
+		);
+
+		ApplicationDispatcher.on(
 			'content-path-clear',
 			this.#onContentPathClear.bind(this),
 		);
@@ -74,11 +79,21 @@ export default class ContentController {
 	// 	this.#CONTENT_INTERSECTION.tick();
 	// }
 
-	// __________________________________________________________________ Events
+	// _____________________________________________________________________ Map
+
+	#onContentMapLoadRequest({ lat, lon, zoom }) {
+		console.log('ContentMap Load Request', lat, lon, zoom);
+
+		this.#CONTENT_MAP.loadMapTexture(lat, lon, zoom);
+	}
+
+	// ____________________________________________________________________ Path
 
 	#onContentPathClear() {
 		this.#CONTENT_PATH.clear();
 	}
+
+	// ____________________________________________________________________ Wall
 
 	#onContentWallBuild(eventData) {
 		// Get Points from Path
@@ -101,6 +116,8 @@ export default class ContentController {
 		// Roof
 		this.#CONTENT_ROOF.clear();
 	}
+
+	// _____________________________________________________________ Interaction
 
 	#onInteractionControllerClick() {
 		// Order Important - Tick Intersection First for Mobile

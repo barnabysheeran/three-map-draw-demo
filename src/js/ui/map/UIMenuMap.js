@@ -19,14 +19,8 @@ export default class UIMenuMap {
 		// Add Title
 		const title = document.createElement('div');
 		title.className = 'ui-title';
-		title.innerText = 'Map';
+		title.innerText = 'Map / Lat';
 		this.#HOLDER.appendChild(title);
-
-		// Add Title
-		const titleLat = document.createElement('div');
-		titleLat.className = 'ui-title';
-		titleLat.innerText = 'Lat';
-		this.#HOLDER.appendChild(titleLat);
 
 		// Add Input for Latitude
 		const latInput = document.createElement('input');

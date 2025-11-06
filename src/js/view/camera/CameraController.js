@@ -19,8 +19,6 @@ export default class CameraController {
 
 	#CAMERA_MODULES = [];
 
-	#CAMERA_KEYBOARD_CONTROLLER;
-
 	#LERP_DEFAULT = 0.05;
 	#MOVEMENT_MINIMUM = 0.0001;
 
@@ -81,15 +79,7 @@ export default class CameraController {
 		this.#CAMERA_MODULES.push(this.#CAMERA_MODULE_OFFSET);
 
 		// Create Keyboard Controller
-		this.#CAMERA_KEYBOARD_CONTROLLER = new CameraKeyboardController(this);
-
-		// TODO Tidy
-
-		// ApplicationDispatcher Events - Camera
-		// ApplicationDispatcher.on(
-		// 	'camera-rotation-reset',
-		// 	this.#onCameraRotationReset.bind(this),
-		// );
+		new CameraKeyboardController(this);
 
 		// Init
 		this.tick(true);

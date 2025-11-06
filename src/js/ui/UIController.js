@@ -9,10 +9,6 @@ export default class UIController {
 	#UI_HOLDER;
 	#MENU_HOLDER;
 
-	#MENU_MAP;
-	#MENU_PATH;
-	#MENU_WALL;
-
 	#LOG_LEVEL = 2;
 
 	// _________________________________________________________________________
@@ -37,8 +33,8 @@ export default class UIController {
 		this.#UI_HOLDER.appendChild(this.#MENU_HOLDER);
 
 		// Create Menus
-		this.#MENU_MAP = new UIMenuMap(this.#MENU_HOLDER);
-		this.#MENU_PATH = new UIMenuPath(this.#MENU_HOLDER);
-		this.#MENU_WALL = new UIMenuWall(this.#MENU_HOLDER);
+		new UIMenuMap(this.#MENU_HOLDER);
+		new UIMenuPath(this.#MENU_HOLDER);
+		new UIMenuWall(this.#MENU_HOLDER);
 	}
 }
