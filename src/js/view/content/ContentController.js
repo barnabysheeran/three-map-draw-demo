@@ -67,18 +67,12 @@ export default class ContentController {
 
 	// ____________________________________________________________________ Tick
 
-	tick() {
-		// Order Important - Tick Intersection First
-		this.#CONTENT_INTERSECTION.tick();
+	// Per Frame Intersection Update required only for Cursor Positioning
 
-		// const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
-
-		// const MAP_INTERSECTION_POINT =
-		// 	this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
-
-		// Tick Content
-		// this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
-	}
+	// tick() {
+	// 	// Order Important - Tick Intersection First
+	// 	this.#CONTENT_INTERSECTION.tick();
+	// }
 
 	// __________________________________________________________________ Events
 
