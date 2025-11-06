@@ -6,6 +6,9 @@ export default class ContentRoof {
 	#ROOF_MATERIAL;
 	#ROOF;
 
+	// TODO Centralise, Match with Wall
+	#DISTANCE_ABOVE_GROUND = 0.01;
+
 	// _________________________________________________________________________
 
 	constructor(scene) {
@@ -55,7 +58,7 @@ export default class ContentRoof {
 		this.#ROOF.rotation.x = Math.PI / 2;
 
 		// Position Roof at Height
-		this.#ROOF.position.y = height;
+		this.#ROOF.position.y = height + this.#DISTANCE_ABOVE_GROUND;
 
 		// Add to scene
 		this.#SCENE.add(this.#ROOF);

@@ -5,6 +5,7 @@ export default class ContentWallSurface {
 
 	#SURFACE;
 
+	// TODO Centralise, Match with Roof
 	#DISTANCE_ABOVE_GROUND = 0.01;
 
 	// _________________________________________________________________________
