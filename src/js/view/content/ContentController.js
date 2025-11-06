@@ -82,8 +82,6 @@ export default class ContentController {
 	// _____________________________________________________________________ Map
 
 	#onContentMapLoadRequest({ lat, lon, zoom }) {
-		console.log('ContentMap Load Request', lat, lon, zoom);
-
 		this.#CONTENT_MAP.loadMapTexture(lat, lon, zoom);
 	}
 
@@ -96,9 +94,14 @@ export default class ContentController {
 	// ____________________________________________________________________ Wall
 
 	#onContentWallBuild(eventData) {
+		console.log('ContentController. onContentWallBuild', eventData);
+
 		// Get Points from Path
 		const POSITIONS = this.#CONTENT_PATH.getPositions();
 		const IS_CLOSED = this.#CONTENT_PATH.getIsClosed();
+
+		console.log('Positions for Wall', POSITIONS);
+		console.log('Is Closed for Wall', IS_CLOSED);
 
 		// Build Walls
 		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height, IS_CLOSED);
@@ -106,6 +109,9 @@ export default class ContentController {
 		if (IS_CLOSED) {
 			// Build Roof
 			this.#CONTENT_ROOF.buildRoof(POSITIONS, eventData.height);
+		} else {
+			// Clear Roof
+			this.#CONTENT_ROOF.clear();
 		}
 	}
 

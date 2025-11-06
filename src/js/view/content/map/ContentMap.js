@@ -45,8 +45,6 @@ export default class ContentMap {
 	// __________________________________________________________________ Events
 
 	loadMapTexture(lat, lon, zoom) {
-		console.log('ContentMap Load Request', lat, lon, zoom);
-
 		// TODO Hard-Coded Map Provider URL
 
 		const { x, y } = this.#latLonToTile(lat, lon, zoom);
@@ -57,8 +55,6 @@ export default class ContentMap {
 			this.#PLANE.material.map = texture;
 			this.#PLANE.material.needsUpdate = true;
 		});
-
-		console.log('Map Tile Load Request', lat, lon, zoom, x, y);
 	}
 
 	// ___________________________________________________________________ Utils
