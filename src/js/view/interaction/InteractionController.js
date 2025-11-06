@@ -14,7 +14,7 @@ export default class InteractionController {
 	#previousMouseY = 0;
 
 	// TODO Hard-Coded Click Threshold
-	#pixelsMovedThreshold = 5;
+	#pixelsMovedThreshold = 10;
 	#pixelsMovedThresholdSquared =
 		this.#pixelsMovedThreshold * this.#pixelsMovedThreshold;
 

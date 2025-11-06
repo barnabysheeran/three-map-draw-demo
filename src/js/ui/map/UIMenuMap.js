@@ -3,8 +3,9 @@ import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
 export default class UIMenuMap {
 	#HOLDER;
 
-	#lat = 51.4779;
-	#lon = 0.0015;
+	// TODO Default Map Location
+	#lat = 38.8977;
+	#lon = -77.0365;
 	#zoom = 17;
 
 	// _________________________________________________________________________
