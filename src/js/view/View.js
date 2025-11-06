@@ -15,10 +15,7 @@ export default class View {
 	#SCENE;
 
 	#CAMERA_CONTROLLER;
-	#LIGHT_CONTROLLER;
-	#CONTENT_CONTROLLER;
 	#RENDER_CONTROLLER;
-	#INTERACTION_CONTROLLER;
 
 	#canvasWidth = 0;
 	#canvasHeight = 0;
@@ -49,18 +46,11 @@ export default class View {
 		// Create Controllers
 		this.#CAMERA_CONTROLLER = new CameraController();
 
-		this.#LIGHT_CONTROLLER = new LightController(this.#SCENE);
+		new LightController(this.#SCENE);
 
-		this.#CONTENT_CONTROLLER = new ContentController(
-			this.#SCENE,
-			this.#CANVAS,
-			this.#CAMERA_CONTROLLER,
-		);
+		new ContentController(this.#SCENE, this.#CANVAS, this.#CAMERA_CONTROLLER);
 
-		this.#INTERACTION_CONTROLLER = new InteractionController(
-			this.#CANVAS,
-			this.#CAMERA_CONTROLLER,
-		);
+		new InteractionController(this.#CANVAS, this.#CAMERA_CONTROLLER);
 	}
 
 	// ____________________________________________________________________ Tick
@@ -80,6 +70,9 @@ export default class View {
 
 		// Update Camera
 		this.#CAMERA_CONTROLLER.tick();
+
+		// Update Content for Cursor Positioning
+		// this.#CONTENT_CONTROLLER.tick();
 
 		// Render
 		this.#RENDER_CONTROLLER.render(

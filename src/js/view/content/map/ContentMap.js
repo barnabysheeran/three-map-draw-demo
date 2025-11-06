@@ -5,8 +5,6 @@ import {
 	TextureLoader,
 } from 'three';
 
-import ApplicationDispatcher from '../../../dispatcher/ApplicationDispatcher.js';
-
 export default class ContentMap {
 	#PLANE;
 
@@ -42,17 +40,11 @@ export default class ContentMap {
 
 		// Add to Scene
 		scene.add(this.#PLANE);
-
-		// Application Dispatcher Event Listeners
-		ApplicationDispatcher.on(
-			'content-map-load-request',
-			this.#onContentMapLoadRequest.bind(this),
-		);
 	}
 
 	// __________________________________________________________________ Events
 
-	#onContentMapLoadRequest({ lat, lon, zoom }) {
+	loadMapTexture(lat, lon, zoom) {
 		console.log('ContentMap Load Request', lat, lon, zoom);
 
 		// TODO Hard-Coded Map Provider URL

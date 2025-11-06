@@ -1,4 +1,4 @@
-import { AxesHelper } from 'three';
+// import { AxesHelper } from 'three';
 
 import ApplicationLogger from '../../application/ApplicationLogger.js';
 import ApplicationDispatcher from '../../dispatcher/ApplicationDispatcher.js';
@@ -7,6 +7,7 @@ import ContentIntersection from './intersection/ContentIntersection.js';
 import ContentMap from './map/ContentMap.js';
 import ContentPath from './path/ContentPath.js';
 import ContentWall from './wall/ContentWall.js';
+import ContentRoof from './roof/ContentRoof.js';
 // import ContentCursor from './cursor/ContentCursor.js';
 
 export default class ContentController {
@@ -14,6 +15,7 @@ export default class ContentController {
 	#CONTENT_MAP;
 	#CONTENT_PATH;
 	#CONTENT_WALL;
+	#CONTENT_ROOF;
 	// #CONTENT_CURSOR;
 
 	#LOG_LEVEL = 3;
@@ -37,6 +39,7 @@ export default class ContentController {
 		this.#CONTENT_MAP = new ContentMap(scene);
 		this.#CONTENT_PATH = new ContentPath(scene);
 		this.#CONTENT_WALL = new ContentWall(scene);
+		this.#CONTENT_ROOF = new ContentRoof(scene);
 		// this.#CONTENT_CURSOR = new ContentCursor(scene);
 
 		// Application Dispatcher Events Interaction
@@ -46,6 +49,11 @@ export default class ContentController {
 		);
 
 		// Application Dispatcher Events UI
+		ApplicationDispatcher.on(
+			'content-map-load-request',
+			this.#onContentMapLoadRequest.bind(this),
+		);
+
 		ApplicationDispatcher.on(
 			'content-path-clear',
 			this.#onContentPathClear.bind(this),
@@ -64,24 +72,28 @@ export default class ContentController {
 
 	// ____________________________________________________________________ Tick
 
-	tick() {
-		// Order Important - Tick Intersection First
-		this.#CONTENT_INTERSECTION.tick();
+	// Per Frame Intersection Update required only for Cursor Positioning
 
-		// const IS_OVER_MAP = this.#CONTENT_INTERSECTION.getIsOverMap();
+	// tick() {
+	// 	// Order Important - Tick Intersection First
+	// 	this.#CONTENT_INTERSECTION.tick();
+	// }
 
-		// const MAP_INTERSECTION_POINT =
-		// 	this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
+	// _____________________________________________________________________ Map
 
-		// Tick Content
-		// this.#CONTENT_CURSOR.tick(IS_OVER_MAP, MAP_INTERSECTION_POINT);
+	#onContentMapLoadRequest({ lat, lon, zoom }) {
+		console.log('ContentMap Load Request', lat, lon, zoom);
+
+		this.#CONTENT_MAP.loadMapTexture(lat, lon, zoom);
 	}
 
-	// __________________________________________________________________ Events
+	// ____________________________________________________________________ Path
 
 	#onContentPathClear() {
 		this.#CONTENT_PATH.clear();
 	}
+
+	// ____________________________________________________________________ Wall
 
 	#onContentWallBuild(eventData) {
 		// Get Points from Path
@@ -90,11 +102,22 @@ export default class ContentController {
 
 		// Build Walls
 		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height, IS_CLOSED);
+
+		if (IS_CLOSED) {
+			// Build Roof
+			this.#CONTENT_ROOF.buildRoof(POSITIONS, eventData.height);
+		}
 	}
 
 	#onContentWallClear() {
+		// Walls
 		this.#CONTENT_WALL.clear();
+
+		// Roof
+		this.#CONTENT_ROOF.clear();
 	}
+
+	// _____________________________________________________________ Interaction
 
 	#onInteractionControllerClick() {
 		// Order Important - Tick Intersection First for Mobile
@@ -105,6 +128,7 @@ export default class ContentController {
 		const MAP_INTERSECTION_POINT =
 			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
 
+		// Path
 		if (IS_OVER_MAP) {
 			this.#CONTENT_PATH.addPoint(MAP_INTERSECTION_POINT);
 		}
