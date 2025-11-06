@@ -3,7 +3,7 @@
 Javascript - Three.js
 
 
-Deploys to [https://barnabysheeran.com/three-map-draw-demo](https://barnabysheeran.com/three-map-draw-demo)   
+Deploys to [https://barnabysheeran.com/demo/three-map-draw](https://barnabysheeran.com/demo/three-map-draw)   
 
 ### _
 
@@ -16,9 +16,14 @@ Deploys to [https://barnabysheeran.com/three-map-draw-demo](https://barnabysheer
 
 ### _
 
-`npm run depcruise` - Updates tool/depcruise/dependencygraph.svg (requires GraphViz `dot`)  
+`npm run depcruise` - Updates tool/depcruise (requires GraphViz `dot`)  
+
+
+Selected  
 
 ![Dependencygraph](tool/depcruise/dependencygraph-selected.svg)  
+
+All
 
 ![Dependencygraph](tool/depcruise/dependencygraph-all.svg)
 
