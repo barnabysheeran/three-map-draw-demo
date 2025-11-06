@@ -20,7 +20,7 @@ export default class RenderController {
 
 		// Tone
 		this.RENDERER.toneMapping = LinearToneMapping;
-		this.RENDERER.toneMappingExposure = 1.5;
+		this.RENDERER.toneMappingExposure = 2.0;
 
 		// Shadows
 		this.RENDERER.shadowMap.enabled = true;

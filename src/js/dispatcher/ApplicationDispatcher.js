@@ -4,6 +4,8 @@ export default class ApplicationDispatcher {
 	static #EVENTS = [];
 
 	static #VALID_EVENT_NAMES = [
+		'content-map-load-request', // { lat: number, lon: number }
+
 		'content-path-clear', // {}
 
 		'content-wall-build', // { height: number }

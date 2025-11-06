@@ -1,9 +1,18 @@
-import { PlaneGeometry, MeshPhysicalMaterial, Mesh } from 'three';
+import {
+	PlaneGeometry,
+	MeshPhysicalMaterial,
+	Mesh,
+	TextureLoader,
+} from 'three';
+
+import ApplicationDispatcher from '../../../dispatcher/ApplicationDispatcher.js';
 
 export default class ContentMap {
 	#PLANE;
 
 	#MESH_DETAIL = 100;
+
+	#textureLoader = new TextureLoader();
 
 	// _________________________________________________________________________
 
@@ -33,5 +42,48 @@ export default class ContentMap {
 
 		// Add to Scene
 		scene.add(this.#PLANE);
+
+		// Application Dispatcher Event Listeners
+		ApplicationDispatcher.on(
+			'content-map-load-request',
+			this.#onContentMapLoadRequest.bind(this),
+		);
+	}
+
+	// __________________________________________________________________ Events
+
+	#onContentMapLoadRequest({ lat, lon, zoom }) {
+		console.log('ContentMap Load Request', lat, lon, zoom);
+
+		// TODO Hard-Coded Map Provider URL
+
+		const { x, y } = this.#latLonToTile(lat, lon, zoom);
+
+		const url = `https://tile.openstreetmap.org/${zoom}/${x}/${y}.png`;
+
+		this.#textureLoader.load(url, (texture) => {
+			this.#PLANE.material.map = texture;
+			this.#PLANE.material.needsUpdate = true;
+		});
+
+		console.log('Map Tile Load Request', lat, lon, zoom, x, y);
+	}
+
+	// ___________________________________________________________________ Utils
+
+	#latLonToTile(lat, lon, zoom) {
+		const x = Math.floor(((lon + 180) / 360) * Math.pow(2, zoom));
+
+		const y = Math.floor(
+			((1 -
+				Math.log(
+					Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180),
+				) /
+					Math.PI) /
+				2) *
+				Math.pow(2, zoom),
+		);
+
+		return { x, y };
 	}
 }

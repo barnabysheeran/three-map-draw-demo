@@ -22,6 +22,12 @@ export default class UIMenuWall {
 
 		// TODO Hard-Coded Walls Height Limits
 
+		// Add Title
+		const titleHeight = document.createElement('div');
+		titleHeight.className = 'ui-title';
+		titleHeight.innerText = 'Height';
+		this.#HOLDER.appendChild(titleHeight);
+
 		// Add Input for Height
 		const heightInput = document.createElement('input');
 		heightInput.className = 'ui-input';
