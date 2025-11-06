@@ -7,6 +7,7 @@ import ContentIntersection from './intersection/ContentIntersection.js';
 import ContentMap from './map/ContentMap.js';
 import ContentPath from './path/ContentPath.js';
 import ContentWall from './wall/ContentWall.js';
+import ContentRoof from './roof/ContentRoof.js';
 // import ContentCursor from './cursor/ContentCursor.js';
 
 export default class ContentController {
@@ -14,6 +15,7 @@ export default class ContentController {
 	#CONTENT_MAP;
 	#CONTENT_PATH;
 	#CONTENT_WALL;
+	#CONTENT_ROOF;
 	// #CONTENT_CURSOR;
 
 	#LOG_LEVEL = 3;
@@ -37,6 +39,7 @@ export default class ContentController {
 		this.#CONTENT_MAP = new ContentMap(scene);
 		this.#CONTENT_PATH = new ContentPath(scene);
 		this.#CONTENT_WALL = new ContentWall(scene);
+		this.#CONTENT_ROOF = new ContentRoof(scene);
 		// this.#CONTENT_CURSOR = new ContentCursor(scene);
 
 		// Application Dispatcher Events Interaction
@@ -90,10 +93,19 @@ export default class ContentController {
 
 		// Build Walls
 		this.#CONTENT_WALL.buildWalls(POSITIONS, eventData.height, IS_CLOSED);
+
+		if (IS_CLOSED) {
+			// Build Roof
+			this.#CONTENT_ROOF.buildRoof(POSITIONS, eventData.height);
+		}
 	}
 
 	#onContentWallClear() {
+		// Walls
 		this.#CONTENT_WALL.clear();
+
+		// Roof
+		this.#CONTENT_ROOF.clear();
 	}
 
 	#onInteractionControllerClick() {
@@ -105,6 +117,7 @@ export default class ContentController {
 		const MAP_INTERSECTION_POINT =
 			this.#CONTENT_INTERSECTION.getMapIntersectionPoint();
 
+		// Path
 		if (IS_OVER_MAP) {
 			this.#CONTENT_PATH.addPoint(MAP_INTERSECTION_POINT);
 		}

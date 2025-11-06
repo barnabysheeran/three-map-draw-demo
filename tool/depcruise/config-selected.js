@@ -13,8 +13,9 @@ export default {
 						path: [
 							'src/js/application/ApplicationLogger.js',
 							'src/js/application/ApplicationConfiguration.js',
-							'src/js/application/ApplicationDispatcher.js',
-							'src/js/application/ApplicationEvent.js',
+
+							'src/js/dispatcher/ApplicationDispatcher.js',
+							'src/js/dispatcher/ApplicationEvent.js',
 						],
 					},
 				},
