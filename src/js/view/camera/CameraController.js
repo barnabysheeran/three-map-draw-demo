@@ -109,6 +109,8 @@ export default class CameraController {
 			this.#updatePerspectiveCamera();
 
 			this.#isInitialised = true;
+
+			return true;
 		}
 
 		return hasMoved;

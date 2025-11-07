@@ -22,10 +22,6 @@ export default class CameraModuleRadius {
 	// ____________________________________________________________________ Tick
 
 	tick() {
-		// console.log(
-		// 	`CameraModuleRadius. tick ${this.#radius} ${this.#radiusTarget}`,
-		// );
-
 		// Store
 		const RADIUS_BEFORE = this.#radius;
 

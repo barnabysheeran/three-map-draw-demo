@@ -71,9 +71,6 @@ export default class UIMenuWall {
 			return;
 		}
 
-		// Update Height
-		// event.target.value = this.#height;
-
 		// Store Height
 		this.#height = value;
 	}
